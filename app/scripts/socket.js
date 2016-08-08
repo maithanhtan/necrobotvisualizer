@@ -49,7 +49,6 @@ function listenToWebSocket() {
                 items: msg.Profile.PlayerData.MaxItemStorage,
                 player: msg.Profile.PlayerData
             }
-            console.log(JSON.stringify(global.storage.player));
             document.title = `[${username}] ${document.title}`;
             ws.send(JSON.stringify({ Command: "GetPokemonSettings" }));
         } else if (command.indexOf("UpdatePositionEvent") >= 0) {
