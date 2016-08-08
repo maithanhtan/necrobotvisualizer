@@ -104,6 +104,7 @@ function listenToWebSocket() {
                     inGym: p.Item1.DeployedFortId != "",
                     canEvolve: pkmInfo && pkmInfo.EvolutionIds.length > 0,
                     cp: parseFloat(p.Item1.Cp),
+                    maxCp: Utils.CalculateMaxCp(p.Item1),
                     iv: parseFloat(p.Item2.toFixed(1)),
                     name: p.Item1.Nickname || inventory.getPokemonName(p.Item1.PokemonId),
                     realname: inventory.getPokemonName(p.Item1.PokemonId, "en"),
@@ -210,9 +211,4 @@ function pokemonToast(pkm, options) {
         "timeOut": "5000",
         "closeButton": true
     })
-}
-
-function pokemonEvolve(pkm, msg) {
-    console.log("pkm"+JSON.stringify(pkm));
-    console.log("msg"+JSON.stringify(msg));
 }
