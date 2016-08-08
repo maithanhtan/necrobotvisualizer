@@ -112,7 +112,10 @@ function listenToWebSocket() {
                     favorite: p.Item1.Favorite != 0,
                     hp: parseFloat(p.Item1.Stamina),
                     hpMax: parseFloat(p.Item1.StaminaMax),
-                    lvl: parseFloat(Utils.GetLevel(p.Item1))
+                    lvl: parseFloat(Utils.GetLevel(p.Item1)),
+                    indAtk: p.Item1.IndividualAttack,
+                    indDef: p.Item1.IndividualDefense,
+                    indSta: p.Item1.IndividualStamina,
                 }
             });            
             global.map.displayPokemonList(pkm);
