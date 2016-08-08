@@ -173,8 +173,9 @@ Map.prototype.displayPokemonList = function(all, sortBy) {
                 </div>
                 <span class="info">CP: <strong>${elt.cp}</strong> IV: <strong>${elt.iv}%</strong> </span>
                 <span class="info">HP: <strong>${elt.hp}/${elt.hpMax}</strong> LVL: <strong>${elt.lvl}</strong></span>
-                <span class="info">Candy: <strong>${elt.candy}<span ${evolveStyle}>/${elt.candyToEvolve}</span></strong></span>
-                <span class="info">Max Cp: <strong>${elt.maxCp}</strong></span>
+                <span class="info">A: <strong>${elt.indAtk}</strong> D: <strong>${elt.indDef}</strong> S: <strong>${elt.indSta}</strong></span>
+                <span class="info">Candy: <strong>${elt.candy}<span ${evolveStyle}>/${elt.candyToEvolve}</span></strong></span>                
+                <span class="info" style="none;">Max Cp: <strong>${elt.maxCp}</strong></span>
                 <span class="imgspan ${evolveClass}"><img src="./assets/pokemon/${elt.pokemonId}.png" /></span>
                 <span class="name">${elt.name}</span>
             </div>
