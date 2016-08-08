@@ -149,10 +149,12 @@ Map.prototype.displayPokemonList = function(all, sortBy) {
         localStorage.setItem("sortPokemonBy", sortBy);
     }
 
-    if (sortBy == "pokemonId") {
-        this.pokemonList = this.pokemonList.sort((p1, p2) => p1[sortBy] - p2[sortBy]);
-    } else {
+    if (global.sortDir == -1) {
         this.pokemonList = this.pokemonList.sort((p1, p2) => p2[sortBy] - p1[sortBy]);
+        global.sortDir = 1
+    } else {
+        this.pokemonList = this.pokemonList.sort((p1, p2) => p1[sortBy] - p2[sortBy]);
+        global.sortDir = -1
     }
 
     $(".inventory .numberinfo").text(`${this.pokemonList.length}/${global.storage.pokemon}`);
