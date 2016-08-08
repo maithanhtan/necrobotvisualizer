@@ -51,10 +51,11 @@
         $("#sortBycp").click(() => global.map.displayPokemonList(null, "cp"));
         $("#sortByiv").click(() => global.map.displayPokemonList(null, "iv"));
         $("#sortByLevel").click(() => global.map.displayPokemonList(null, "lvl"));
+        $("#sortByMaxCp").click(() => global.map.displayPokemonList(null, "maxCp"));
         
        
 
-        $("#sortBypokemonId, #sortBycp, #sortByiv, #sortByLevel").click( function() {
+        $("#sortBypokemonId, #sortBycp, #sortByiv, #sortByLevel, #sortByMaxCp").click( function() {
             if(!$(this).hasClass("active")) {
                 $(this).toggleClass("active").siblings().removeClass("active");
             }
