@@ -97,7 +97,7 @@ function listenToWebSocket() {
         } else if (command.indexOf("PokemonListEvent") >= 0) {            
             var pkm = Array.from(msg.PokemonList.$values, p => {
                 var pkmInfo = global.pokemonSettings[p.Item1.PokemonId - 1];
-                return {
+                 return {
                     id: p.Item1.Id,
                     pokemonId: p.Item1.PokemonId,
                     inGym: p.Item1.DeployedFortId != "",
@@ -116,6 +116,8 @@ function listenToWebSocket() {
                     indAtk: p.Item1.IndividualAttack,
                     indDef: p.Item1.IndividualDefense,
                     indSta: p.Item1.IndividualStamina,
+                    move1: Utils.GetMoveName(p.Item1.Move1),
+                    move2: Utils.GetMoveName(p.Item1.Move2),
                 }
             });            
             global.map.displayPokemonList(pkm);
