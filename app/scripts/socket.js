@@ -46,7 +46,8 @@ function listenToWebSocket() {
             global.username = username;
             global.storage = {
                 pokemon: msg.Profile.PlayerData.MaxPokemonStorage,
-                items: msg.Profile.PlayerData.MaxItemStorage
+                items: msg.Profile.PlayerData.MaxItemStorage,
+                player: msg.Profile.PlayerData
             }
             document.title = `[${username}] ${document.title}`;
             ws.send(JSON.stringify({ Command: "GetPokemonSettings" }));
@@ -93,23 +94,32 @@ function listenToWebSocket() {
         } else if (command.indexOf("SnipeModeEvent") >= 0) {
             if (msg.Active) console.log("Sniper Mode");
             global.snipping = msg.Active;
-        } else if (command.indexOf("PokemonListEvent") >= 0) {
+        } else if (command.indexOf("PokemonListEvent") >= 0) {            
             var pkm = Array.from(msg.PokemonList.$values, p => {
                 var pkmInfo = global.pokemonSettings[p.Item1.PokemonId - 1];
-                return {
+                 return {
                     id: p.Item1.Id,
                     pokemonId: p.Item1.PokemonId,
                     inGym: p.Item1.DeployedFortId != "",
                     canEvolve: pkmInfo && pkmInfo.EvolutionIds.length > 0,
-                    cp: p.Item1.Cp,
-                    iv: p.Item2.toFixed(1),
+                    cp: parseFloat(p.Item1.Cp),
+                    maxCp: Utils.CalculateMaxCp(p.Item1),
+                    iv: parseFloat(p.Item2.toFixed(1)),
                     name: p.Item1.Nickname || inventory.getPokemonName(p.Item1.PokemonId),
                     realname: inventory.getPokemonName(p.Item1.PokemonId, "en"),
                     candy: p.Item3,
                     candyToEvolve: pkmInfo ? pkmInfo.CandyToEvolve : 0,
-                    favorite: p.Item1.Favorite != 0
+                    favorite: p.Item1.Favorite != 0,
+                    hp: parseFloat(p.Item1.Stamina),
+                    hpMax: parseFloat(p.Item1.StaminaMax),
+                    lvl: parseFloat(Utils.GetLevel(p.Item1)),
+                    indAtk: p.Item1.IndividualAttack,
+                    indDef: p.Item1.IndividualDefense,
+                    indSta: p.Item1.IndividualStamina,
+                    move1: Utils.GetMoveName(p.Item1.Move1),
+                    move2: Utils.GetMoveName(p.Item1.Move2),
                 }
-            });
+            });            
             global.map.displayPokemonList(pkm);
         } else if (command.indexOf("EggsListEvent") >= 0) {
             var incubators = Array.from(msg.Incubators.$values, i => {

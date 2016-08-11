@@ -149,10 +149,12 @@ Map.prototype.displayPokemonList = function(all, sortBy) {
         localStorage.setItem("sortPokemonBy", sortBy);
     }
 
-    if (sortBy == "pokemonId") {
-        this.pokemonList = this.pokemonList.sort((p1, p2) => p1[sortBy] - p2[sortBy]);
-    } else {
+    if (global.sortDir == -1) {
         this.pokemonList = this.pokemonList.sort((p1, p2) => p2[sortBy] - p1[sortBy]);
+        global.sortDir = 1
+    } else {
+        this.pokemonList = this.pokemonList.sort((p1, p2) => p1[sortBy] - p2[sortBy]);
+        global.sortDir = -1
     }
 
     $(".inventory .numberinfo").text(`${this.pokemonList.length}/${global.storage.pokemon}`);
@@ -169,10 +171,15 @@ Map.prototype.displayPokemonList = function(all, sortBy) {
                     <a title='Transfer' href="#" class="transferAction ${transferStyle}"><img src="./assets/img/recyclebin.png" /></a>
                     <a title='Evolve' href="#" class="evolveAction" ${evolveStyle}><img src="./assets/img/evolve.png" /></a>
                 </div>
-                <span class="info">CP: <strong>${elt.cp}</strong> IV: <strong>${elt.iv}%</strong></span>
-                <span class="info">Candy: ${elt.candy}<span ${evolveStyle}>/${elt.candyToEvolve}</span></span>
+                <span class="info">CP: <strong>${elt.cp}</strong> IV: <strong>${elt.iv}%</strong> </span>
+                <span class="info">HP: <strong>${elt.hp}/${elt.hpMax}</strong> LVL: <strong>${elt.lvl}</strong></span>
+                <span class="info">A: <strong>${elt.indAtk}</strong> D: <strong>${elt.indDef}</strong> S: <strong>${elt.indSta}</strong></span>
+                <span class="info">Candy: <strong>${elt.candy}<span ${evolveStyle}>/${elt.candyToEvolve}</span></strong></span>                
+                <span class="info">Max Cp: <strong>${elt.maxCp}</strong></span>                               
                 <span class="imgspan ${evolveClass}"><img src="./assets/pokemon/${elt.pokemonId}.png" /></span>
                 <span class="name">${elt.name}</span>
+                <span class="info">Move 1: <strong>${elt.move1}</strong></span>                
+                <span class="info">Move 2: <strong>${elt.move2}</strong></span> 
             </div>
         `);
     });
