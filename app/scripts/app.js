@@ -56,7 +56,7 @@
         
        
 
-        $("#sortBypokemonId, #sortBycp, #sortByiv, #sortByLevel, #sortByMaxCp", "#sortByMaxCp").click( function() {
+        $("#sortBypokemonId, #sortBycp, #sortByiv, #sortByLevel, #sortByMaxCp", "#sortByFavorite").click( function() {
             if(!$(this).hasClass("active")) {
                 $(this).toggleClass("active").siblings().removeClass("active");
             }
