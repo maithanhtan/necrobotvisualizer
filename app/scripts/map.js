@@ -162,25 +162,32 @@ Map.prototype.displayPokemonList = function(all, sortBy) {
     div.html(``);
     this.pokemonList.forEach(function(elt) {
         var canEvolve = elt.canEvolve && !elt.inGym && elt.candy >= elt.candyToEvolve;
-        var evolveStyle = canEvolve ? "" : "style=''";
+        var evolveStyle = canEvolve ? "" : "style='display:none'";
+		var displayCandy = elt.candyToEvolve ? "" : "style='display:none'";
         var evolveClass = canEvolve ? "canEvolve" : "";
         var transferStyle = elt.favorite ? "style='display:none'" : "";
+        var favoriteStyle = elt.favorite ? "" : ";display:none";
         div.append(`
             <div class="pokemon">
                 <div class="transfer" id='${elt.id}'>
                     <a title='Transfer' href="#" class="transferAction ${transferStyle}"><img src="./assets/img/recyclebin.png" /></a>
                     <a title='Evolve' href="#" class="evolveAction" ${evolveStyle}><img src="./assets/img/evolve.png" /></a>
                 </div>
-                <span class="info">CP: <strong>${elt.cp}</strong> IV: <strong>${elt.iv}%</strong> </span>
-                <span class="info">Move: <strong>${elt.move1}</strong>, <strong>${elt.move2}%</strong></span> 
-                <span class="info">HP: <strong>${elt.hp}/${elt.hpMax}</strong> LVL: <strong>${elt.lvl}</strong></span>
-                <span class="info">A: <strong>${elt.indAtk}</strong> D: <strong>${elt.indDef}</strong> S: <strong>${elt.indSta}</strong></span>
-                <span class="info">Candy: <strong>${elt.candy}<span ${evolveStyle}>/${elt.candyToEvolve}</span></strong></span>                
-                <span class="info">Max Cp: <strong>${elt.maxCp}</strong></span>                               
+                <span class="info">CP: <strong>${elt.cp}/${elt.maxCpCurrent}</strong> IV: <strong>${elt.iv}%</strong> </span>              
+                <span class="info">Candy: <strong>${elt.candy}<span ${displayCandy}>/${elt.candyToEvolve}</span></strong></span>                            
                 <span class="imgspan ${evolveClass}"><img src="./assets/pokemon/${elt.pokemonId}.png" /></span>
-                <span class="name">${elt.name}</span>
+                <span class="name">
+					<div class="tooltip"><i class="fa fa-star" style="color:#FADA5E${favoriteStyle}"></i>&nbsp;${elt.name}&nbsp;<i class="fa fa-info-circle"></i>
+						<span class="tinfo">
+							<span>HP: <strong>${elt.hp}/${elt.hpMax}</strong> LVL: <strong>${elt.lvl}</strong></span><br />
+							<span>Atk: <strong>${elt.indAtk}</strong> Def: <strong>${elt.indDef}</strong> Sta: <strong>${elt.indSta}</strong></span><br />
+							<span>Max Cp: <strong>${elt.maxCpMax}</strong>/<strong>${elt.perfectCpMax}</strong></span><br />
+							<span>Upg >> Candy: <strong>${elt.maxLevelItems["candy"]}</strong> / Dust: <strong>${elt.maxLevelItems["dust"]}</strong>
+						</span>
+					</div>
+				</span>
                 <span class="info">Move 1: <strong>${elt.move1}</strong></span>                
-                <span class="info">Move 2: <strong>${elt.move2}</strong></span> 
+                <span class="info">Move 2: <strong>${elt.move2}</strong></span> <br /><br />
             </div>
         `);
     });

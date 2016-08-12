@@ -20,7 +20,7 @@ $(function() {
 
     function check() {
         try {
-            var api = "https://api.github.com/repos/nicoschmitt/necrobotvisualizer/releases";
+            var api = "https://api.github.com/repos/boindil/necrobotvisualizer/releases";
             $.getJSON(api, (data) => {
                 data = data.filter(r => !r.prerelease && !r.draft);
                 var ver = data[0].name;
